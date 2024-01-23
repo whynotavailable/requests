@@ -1,15 +1,25 @@
 import fs from 'fs';
 import { printer } from './helpers.js';
+import { program } from 'commander';
+
+program.arguments('<cmd>')
+
+program
+  .option('-e, --env <env>');
+
+program.parse();
 
 async function run() {
   let config = {};
 
-  if (fs.existsSync('./env/main.json')) {
-    config = JSON.parse(fs.readFileSync('./env/main.json', 'utf8'));
+  const options = program.opts();
+
+  if (options.env) {
+    config = JSON.parse(fs.readFileSync(`./env/${env}.json`, 'utf8'));
   }
 
   try {
-    const { handler } = await import('./calls/' + process.argv[process.argv.length - 1] + '.js')
+    const { handler } = await import('./calls/' + program.args[0] + '.js')
     const response = await handler(config);
 
     if (response) {
