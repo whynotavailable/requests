@@ -1,4 +1,4 @@
-async function getToken(tokenUri, tokenRequest) {
+export async function getToken(tokenUri, tokenRequest) {
   const tokenResponse = await axios.post(tokenUri, tokenRequest, {
     headers: {
       'Content-Type': 'application/json'
@@ -8,11 +8,19 @@ async function getToken(tokenUri, tokenRequest) {
   return tokenResponse.data.access_token;
 }
 
-function printer(data) {
+export function printer(data) {
+  if (data.data !== undefined) { // For axios responses
+    if (typeof data.data === 'object') {
+      console.log(JSON.stringify(data.data, null, 2));
+    }
+    else {
+      console.log(data.data);
+    }
+    return;
+  }
+
   console.log(data);
 }
 
-exports = {
-  getToken,
-  printer
-}
+// exports.getToken = getToken;
+// exports.printer = printer;

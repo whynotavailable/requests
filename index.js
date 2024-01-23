@@ -1,17 +1,15 @@
-const axios = require('axios');
-const fs = require('fs');
-const printer = require('./helpers').printer;
+import fs from 'fs';
+import { printer } from './helpers.js';
 
 async function run() {
   let config = {};
 
   if (fs.existsSync('./env/main.json')) {
-    config = require('./env/main.json');
-    console.log(config);
+    config = JSON.parse(fs.readFileSync('./env/main.json', 'utf8'));
   }
 
   try {
-    const handler = require('./calls/' + process.argv[process.argv.length - 1]).handler
+    const { handler } = await import('./calls/' + process.argv[process.argv.length - 1] + '.js')
     const response = await handler(config);
 
     if (response) {
