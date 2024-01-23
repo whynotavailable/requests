@@ -15,7 +15,7 @@ async function run() {
   const options = program.opts();
 
   if (options.env) {
-    config = JSON.parse(fs.readFileSync(`./env/${env}.json`, 'utf8'));
+    config = JSON.parse(fs.readFileSync(`./env/${options.env}.json`, 'utf8'));
   }
 
   try {
