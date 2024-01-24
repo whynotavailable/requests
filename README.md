@@ -41,4 +41,6 @@ export async function handler(config) {
 }
 ```
 
+CC0, I'm not adding a separate file for three letters.
+
 That's it.
