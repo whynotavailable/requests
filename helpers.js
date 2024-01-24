@@ -21,6 +21,3 @@ export function printer(data) {
 
   console.log(data);
 }
-
-// exports.getToken = getToken;
-// exports.printer = printer;
